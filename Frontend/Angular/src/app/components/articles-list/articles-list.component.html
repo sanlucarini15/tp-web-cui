@@ -1,0 +1,27 @@
+<h3>Lista de Articulos</h3>
+<table>
+    <thead class="cabecera">
+        <tr>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Material</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Cantidad</th>
+            <th>Compra</th>
+            <th>Eliminar</th>
+        </tr>
+    </thead>
+    <tbody class="cuerpo">
+        <tr *ngFor="let article of articles">
+            <td><img width="100" height="100" [src]="article.imagen" [alt]="article.articulo"></td>
+            <td>{{article.articulo | uppercase}}</td>
+            <td>{{article.material | uppercase}}</td>
+            <td>{{article.precio | currency}}</td>
+            <td><span *ngIf="article.stock==0">STOCK AGOTADO</span><span *ngIf="article.stock != 0">{{article.stock}}</span></td>
+            <td><app-input-number [(quantity)]="article.quantity" [max]="article.stock" *ngIf="article.stock" (maxReached)="maxReached($event)"></app-input-number></td>
+            <td><button (click)="addToCart(article)">Comprar</button></td>
+            <td><button (click)="deleteArticle(article)">Eliminar</button></td>
+        </tr>
+    </tbody>
+</table>

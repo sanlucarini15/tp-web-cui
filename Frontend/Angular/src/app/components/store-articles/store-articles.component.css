@@ -1,0 +1,16 @@
+/*CONTENIDO*/
+.contenido{
+    display: flex;
+}
+
+.lista{
+    margin-right: 5px;
+}
+
+.carritocompras{
+    margin-left: 5px;
+}
+
+.agregararticulo{
+    display: block;
+}

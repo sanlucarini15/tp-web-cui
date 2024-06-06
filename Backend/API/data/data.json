@@ -1,0 +1,16 @@
+[
+{"articulo" : "cama puff", "material" : "tela pelo de mono", "precio" : 12000, "stock" : 23, "imagen": "https://http2.mlstatic.com/D_NQ_NP_606370-MLA51151956083_082022-O.webp"},
+{"articulo" : "comedero doble", "material" : "acero", "precio" : 7100, "stock" : 7, "imagen": "https://http2.mlstatic.com/D_NQ_NP_905024-MLA48483122472_122021-O.webp"},
+{"articulo" : "comedero triple", "material" : "acero", "precio" : 10000, "stock" : 7, "imagen": "https://http2.mlstatic.com/D_NQ_NP_806703-MLA48328503619_112021-O.webp"},
+{"articulo" : "bebedero plegable", "material" : "silicona", "precio" : 1450, "stock" : 7, "imagen": "https://m.media-amazon.com/images/I/41cReYT-phS._AC_UF894,1000_QL80_.jpg"},
+{"articulo" : "comedero simple", "material" : "acero", "precio" : 3000, "stock" : 8, "imagen": "https://http2.mlstatic.com/D_NQ_NP_650673-MLA48483296460_122021-O.webp"},
+{"articulo" : "alfombra para comederos", "material" : "goma", "precio" : 2100, "propiedad" : "antideslizante", "stock" : 7, "imagen": "https://d22fxaf9t8d39k.cloudfront.net/6cafaf5829624f7ae6dfcbb0a21a66d67b44c7a9f0595a2a9561107ba459f03c1196.jpeg"},
+{"articulo" : "mordillo chupete", "material" : "goma", "precio" : 1600, "stock" : 12, "imagen": "https://http2.mlstatic.com/D_NQ_NP_692133-MLA48012139396_102021-O.webp"},
+{"articulo" : "cepillo guante masajeador", "material" : "goma", "precio" : 2400, "stock" : 1, "imagen": "https://tiendapatitasfelices.com/wp-content/uploads/2022/06/Guante-Cepillo-Quita-Pelos-Masajeador-Mascotas-Perros-Gatos-1.jpeg"},
+{"articulo" : "collar", "material" : "tela", "precio" : 1200, "estampado" : [ "huellitas", "rayado", "circulos", "liso" ], "stock" : 10, "imagen": "https://i0.wp.com/mascotasduo.com.ar/wp-content/uploads/2021/07/collar-para-perro-y-gato-scaled.webp?fit=2560%2C2560&ssl=1"},
+{"articulo" : "hueso", "material" : "goma", "precio" : 2400, "stock" : 0, "imagen": "https://d2r9epyceweg5n.cloudfront.net/stores/120/791/products/414-juguete-perros-mini-hueso-goma21-a6f85b9775ca0d2c4915122106286336-1024-1024.jpg"},
+{"articulo" : "funda cubre asientos coche", "material" : "tela", "precio" : 11500, "stock" : 24, "imagen": "https://d22fxaf9t8d39k.cloudfront.net/620246d96ea7807cdc012bb8771fa6632b5f767ae28a128178f3d025fdc2b7891196.jpeg"},
+{"articulo" : "pretal", "material" : "tela", "precio" : 9800, "stock" : 8, "imagen": "https://http2.mlstatic.com/D_NQ_NP_679205-MLA44559344738_012021-O.webp"},
+{"articulo" : "bolso transportador", "material" : "tela", "precio" : 9500, "stock" : 17, "imagen": "https://d3ugyf2ht6aenh.cloudfront.net/stores/880/994/products/bolsos-31-2ad5c9fe0e48a5948c16451938599110-640-0.jpg"},
+{"articulo" : "hueso masticable", "material" : "cuero deshidratado", "precio" : 1280, "stock" : 13, "imagen": "https://shop-cdn-m.mediazs.com/bilder/barkoo/huesos/con/nudos/de/cerdo/para/perros/9/400/59814_pla_barkoo_kauknochen_geknotet_schweinehaut_6_x_17_cm_9.jpg"}
+]

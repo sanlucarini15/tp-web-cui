@@ -1,0 +1,36 @@
+.contenedor{
+    justify-content: center;
+    background-image: url("../../../assets/img/fondo.jpg");
+    background-position: center;
+    display: flex;
+    text-align: center;
+    height: 200px;
+    width: 100%;
+    align-items: center;
+}
+
+.input, .btn {
+    margin: 5px;
+    height: 30px;
+    text-align: center;
+    border-color: rgba(156, 63, 222, 0.959);
+    border-radius: 15px;
+}
+
+.input {
+    width: 150px;  
+}
+
+.btn {
+    width: 100px;
+    color: rgba(156, 63, 222, 0.959);
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: rgba(156, 63, 222, 0.959);
+    color: white;
+    width: 110px;
+    height: 40px;
+    font-size: medium;
+}

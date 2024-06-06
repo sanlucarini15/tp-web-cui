@@ -1,0 +1,13 @@
+<h3>agregar articulos</h3>
+<div class="contenedor">
+    <form action="ingresar datos">
+        <input [(ngModel)]="imagen" id="imagen" class="input" type="text" name="imagen" placeholder="URL Imagen" required>
+        <input [(ngModel)]="articulo" id="articulo" class="input" type="text" name="articulo" placeholder="Articulo" required>
+        <input [(ngModel)]="material" id="material" class="input" type="text" name="material" placeholder="Material" required>
+        <input [(ngModel)]="precio" id="precio" class="input" type="number" name="precio" placeholder="Precio" required>
+        <input [(ngModel)]="stock" id="stock" class="input" type="number" name="stock" placeholder="Stock" required>
+        <div>
+            <button (click)="addArt()" id="btnAgregar" class="btn">Agregar</button>
+        </div>
+    </form>
+</div>
