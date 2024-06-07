@@ -1,0 +1,35 @@
+.header {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .search-container input {
+    width: 300px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .search-container ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .search-container li {
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+  }
+  

@@ -1,0 +1,6 @@
+[
+    { "id": 1, "name": "Half-Life 2", "genre": "FPS" },
+    { "id": 2, "name": "Portal 2", "genre": "Puzzle" },
+    { "id": 3, "name": "Team Fortress 2", "genre": "FPS" }
+]
+  

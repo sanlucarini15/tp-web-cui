@@ -1,0 +1,17 @@
+<header class="header">
+  <h1 class="header-title">Meilisearch con Angular</h1>
+  <p class="header-subtitle">Busqueda de juegos 🎮</p>
+</header>
+
+<div class="container">
+  <div class="search-container">
+    <input [(ngModel)]="query" (input)="onSearch()" placeholder="Buscar juegos..." />
+    <div *ngIf="results.length > 0">
+      <ul>
+        <li *ngFor="let result of results">
+          {{ result.name }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
