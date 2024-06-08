@@ -1,11 +1,6 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideRouter } from '@angular/router';
+import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
-import { MeilisearchService } from './app/meilisearch.service';
 
-bootstrapApplication(AppComponent, {
-  providers: [
-    provideRouter([]),
-    MeilisearchService
-  ]
-}).catch(err => console.error(err));
+bootstrapApplication(AppComponent, appConfig)
+  .catch((err) => console.error(err));

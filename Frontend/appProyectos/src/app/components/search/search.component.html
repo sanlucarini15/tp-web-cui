@@ -1,0 +1,31 @@
+<div class="welcome-page">
+  <header class="header">
+    <h1 class="header-title">Meilisearch + Angular</h1>
+    <p class="header-subtitle">Search in Steam video games 🎮</p>
+  </header>
+
+  <div class="welcome-content">
+    <div class="container">
+      <div class="search-container">
+        <input [(ngModel)]="query" (input)="onSearch()" placeholder="Search for games..." class="search-input" />
+        <div *ngIf="showNoResults" class="no-results-message">
+          No results found
+        </div>
+        <div *ngIf="results.length > 0">
+          <ul class="search-results">
+            <li *ngFor="let result of results" class="search-result">
+              {{ result.name }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="contact-buttons">
+  <a href="https://facebook.com" target="_blank" class="btn-contact"><i class="fab fa-facebook-f"></i></a>
+  <a href="https://twitter.com" target="_blank" class="btn-contact"><i class="fab fa-twitter"></i></a>
+  <a href="https://instagram.com" target="_blank" class="btn-contact"><i class="fab fa-instagram"></i></a>
+  <a href="mailto:someone@example.com" class="btn-contact"><i class="fas fa-envelope"></i></a>
+</div>

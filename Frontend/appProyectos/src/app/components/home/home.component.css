@@ -1,47 +1,18 @@
-/* Importar la fuente desde Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
-
-body {
-  margin: 0;
-  font-family: 'Open Sans', sans-serif;
-  background-color: #f4f4f4;
-  color: #333;
+.welcome-page {
+  position: relative;
+  text-align: center;
+  padding: 100px 20px;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://www.icam.edu.pe/wp-content/uploads/2023/06/Proyectos.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-button {
-  font-family: inherit;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 15px;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  margin: 0;
-}
-
-ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-li {
-  margin: 0;
-  padding: 0;
-}
-
-/* Navbar Styles */
 .navbar {
   width: 100%;
   padding: 10px 0;
@@ -63,14 +34,9 @@ li {
   color: white;
 }
 
-.navbar-nav {
-  list-style: none;
-  display: flex;
-  gap: 15px;
-}
-
 .nav-item {
-  margin-left: 15px;
+  margin-left: 15px; /* Espacio entre los elementos de la barra de navegación */
+  
 }
 
 .nav-item a {
@@ -82,22 +48,6 @@ li {
 .nav-item a:hover {
   background-color: #555;
   border-radius: 5px;
-}
-
-/* Welcome Page Styles */
-.welcome-page {
-  position: relative;
-  text-align: center;
-  padding: 100px 20px;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://www.icam.edu.pe/wp-content/uploads/2023/06/Proyectos.jpg');
-  background-size: cover;
-  background-position: center;
-  color: white;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .welcome-content {
@@ -136,7 +86,6 @@ li {
   background-color: #e68900;
 }
 
-/* Features Styles */
 .features {
   display: flex;
   justify-content: space-around;
@@ -166,7 +115,6 @@ li {
   color: #ddd;
 }
 
-/* Contact Buttons Styles */
 .contact-buttons {
   position: absolute;
   bottom: 20px;

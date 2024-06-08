@@ -1,5 +1,5 @@
 {
-  "name": "app-proyectos",
+  "name": "app-empleados",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -18,6 +18,10 @@
     "@angular/platform-browser": "^17.3.0",
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.3",
+    "jquery": "^3.7.1",
+    "meilisearch": "^0.40.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
