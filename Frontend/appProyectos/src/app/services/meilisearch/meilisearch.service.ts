@@ -18,4 +18,11 @@ export class MeilisearchService {
     const searchResults = await index.search(query);
     return searchResults.hits;
   }
+
+  async getRecordById(indexName: string, id: string) {
+    const index = this.client.index(indexName);
+    const record = await index.getDocument(id);
+    return record;
+  }
+  
 }

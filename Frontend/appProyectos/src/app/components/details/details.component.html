@@ -1,0 +1,11 @@
+<div class="details-page">
+    <div class="details-container" *ngIf="recordDetails">
+      <h1 class="details-title">{{ recordDetails.name }}</h1>
+      <div class="details-info">
+        <p><strong>Genre:</strong> {{ recordDetails.genre }}</p>
+      </div>
+      <a href="/search" class="back-button">Buscar mas juegos</a>
+    </div>
+    <div *ngIf="!recordDetails" class="loading-message">Loading...</div>
+  </div>
+  
