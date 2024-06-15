@@ -1,0 +1,23 @@
+<div class="welcome-page">
+  <header class="header">
+    <h1 class="header-title">Explora distintos proyectos</h1>
+    <p class="header-subtitle">Encuentra proyectos según tus intereses y necesidades 📝</p>
+  </header>
+
+  <div class="container">
+    <div class="search-container">
+      <input [(ngModel)]="query" (input)="onSearch()" placeholder="Buscar proyectos..." class="search-input" />
+      <div *ngIf="showNoResults" class="no-results-message">
+        No results found
+      </div>
+      <div *ngIf="results.length > 0">
+        <ul class="search-results">
+          <li *ngFor="let result of results" class="search-result">
+            <a [routerLink]="['/details', result.id]">{{ result.name }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+

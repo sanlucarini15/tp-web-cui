@@ -1,0 +1,46 @@
+.error-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://www.icam.edu.pe/wp-content/uploads/2023/06/Proyectos.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+.error-container {
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.error-title {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #ff9800;
+}
+
+.error-message {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    color: #ddd;
+}
+
+.back-home-button {
+    background-color: #ff9800;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.back-home-button:hover {
+    background-color: #e68900;
+}

@@ -1,0 +1,139 @@
+.welcome-page {
+  position: relative;
+  text-align: center;
+  padding: 100px 20px;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://www.icam.edu.pe/wp-content/uploads/2023/06/Proyectos.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar {
+  width: 100%;
+  padding: 10px 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand {
+  font-size: 1.5em;
+  color: white;
+}
+
+.nav-item {
+  margin-left: 15px; /* Espacio entre los elementos de la barra de navegación */
+  
+}
+
+.nav-item a {
+  color: white;
+  padding: 10px 15px;
+  transition: background-color 0.3s;
+}
+
+.nav-item a:hover {
+  background-color: #555;
+  border-radius: 5px;
+}
+
+.welcome-content {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  z-index: 2;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  margin-top: 50px;
+}
+
+.welcome-content h1 {
+  font-size: 3.5em;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.welcome-content p {
+  font-size: 1.5em;
+  margin-bottom: 30px;
+}
+
+.btn-go-to-search {
+  background-color: #ff9800;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 25px;
+  text-decoration: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-go-to-search:hover {
+  background-color: #e68900;
+}
+
+.features {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.feature {
+  text-align: center;
+  max-width: 300px;
+}
+
+.feature .icon {
+  font-size: 3em;
+  margin-bottom: 20px;
+  color: #ff9800;
+}
+
+.feature h3 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.feature p {
+  font-size: 1em;
+  color: #ddd;
+}
+
+.contact-buttons {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+}
+
+.btn-contact, .btn-social {
+  background-color: #ff9800;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-contact:hover, .btn-social:hover {
+  background-color: #e68900;
+}
