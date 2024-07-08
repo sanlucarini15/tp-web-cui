@@ -1,31 +1,31 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
-import { Router } from '@angular/router';
-import { NgClass } from '@angular/common';
-import { FormsModule, NgModel, NgModelGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-register',
   standalone: true,
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
-  imports: [NgClass, FormsModule]
+  styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-
   username: string = '';
   password: string = '';
+  errorMessage: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  register() {
+  onRegister() {
     this.authService.register(this.username, this.password).subscribe(
-      (response) => {
-        alert('Registration successful!');
+      () => {
         this.router.navigate(['/login']);
       },
-      (error) => {
-        alert('Registration failed!');
+      error => {
+        this.errorMessage = 'Error al registrar el usuario.';
       }
     );
   }

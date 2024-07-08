@@ -8,7 +8,7 @@ require('../config/passport');
 
 // Endpoints
 router.post('/register', authController.register);
-router.post('/login', passport.authenticate('local'), authController.login);
+router.post('/login', authController.login);
 router.post('/logout', authController.logout);
 router.get('/check-auth', authController.checkAuthentication);
 router.get('/users', (req, res) => {

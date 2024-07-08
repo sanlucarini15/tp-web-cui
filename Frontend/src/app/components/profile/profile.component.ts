@@ -1,20 +1,29 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css'],
-  imports: [NgIf]
+  styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  username: string = '';
+  
+  username: string | null = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.username = this.authService.getCurrentUser();
   }
+
+  onLogout() {
+    this.authService.logout().subscribe(() => {
+      this.router.navigate(['/login']);
+    });
+  }
+  
 }
