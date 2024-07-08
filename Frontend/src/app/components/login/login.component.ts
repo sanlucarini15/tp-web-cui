@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -17,6 +17,20 @@ export class LoginComponent {
   errorMessage: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit() {
+    // Verificar si hay un usuario logeado antes de permitir el acceso a LoginComponent
+    this.authService.checkAuth().subscribe(
+      (response) => {
+        if (response.message === 'Usuario autenticado') {
+          this.router.navigate(['/profile']);
+        }
+      },
+      (error) => {
+        console.error('Error al verificar autenticación:', error);
+      }
+    );
+  }
 
   onLogin() {
     this.authService.login(this.username, this.password).subscribe(
