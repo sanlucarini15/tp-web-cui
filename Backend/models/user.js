@@ -1,3 +1,17 @@
-const users = []; // This is a simple in-memory user store. Use a database in production.
+const mongoose = require('mongoose');
 
-module.exports = users;
+const userSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+});
+
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;

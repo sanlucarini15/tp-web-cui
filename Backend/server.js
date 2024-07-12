@@ -5,6 +5,7 @@ const passport = require('passport');
 const authRoutes = require('./routes/auth');
 const cors = require('cors');
 const app = express();
+require('./config/database'); // Conectar a la base de datos
 require('./config/passport'); // Asegúrate de requerir la configuración de passport
 
 const corsOptions = {
