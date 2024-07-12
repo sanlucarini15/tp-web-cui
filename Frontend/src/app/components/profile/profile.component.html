@@ -1,8 +1,10 @@
-<div class="profile-container" *ngIf="username">
-  <h2>Welcome, {{ username }}!</h2>
-  <button (click)="onLogout()">Logout</button>
-</div>
-<div class="profile-container" *ngIf="!username">
-  <p>No user is logged in.</p>
-  <button (click)="onLogin()">Iniciar sesion</button>
+<div class="content-container">
+  <div class="profile-container" *ngIf="username">
+    <h2>Bienvenido, {{ username }}!</h2>
+    <button (click)="onLogout()" class="btn">Cerrar sesión</button>
+  </div>
+  <div class="profile-container" *ngIf="!username">
+    <p>Ningún usuario ha iniciado sesión.</p>
+    <button (click)="onLogin()" class="btn">Iniciar sesión</button>
+  </div>
 </div>

@@ -1,17 +1,19 @@
-<div class="login-container">
-  <h2>Login</h2>
-  <form (ngSubmit)="onLogin()">
-    <div class="form-group">
-      <label for="username">Usuario</label>
-      <input type="text" id="username" [(ngModel)]="username" name="username" class="form-control" required>
-    </div>
-    <div class="form-group">
-      <label for="password">Contraseña</label>
-      <input type="password" id="password" [(ngModel)]="password" name="password" class="form-control" required>
-    </div>
-    <button type="submit" class="btn">Iniciar sesion</button>
-    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
-  </form>
-  <br>
-  <p style="text-align: center">¿No tienes una cuenta? <a routerLink="/register">Regístrate</a></p>
+<div class="content-container">
+  <div class="login-container">
+    <h2>Login</h2>
+    <form (ngSubmit)="onLogin()">
+      <div class="form-group">
+        <label for="username">Usuario</label>
+        <input type="text" id="username" [(ngModel)]="username" name="username" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" [(ngModel)]="password" name="password" class="form-control" required>
+      </div>
+      <button type="submit" class="btn">Iniciar sesión</button>
+      <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+    </form>
+    <br>
+    <p style="text-align: center">¿No tienes una cuenta? <a routerLink="/register">Regístrate</a></p>
+  </div>
 </div>
