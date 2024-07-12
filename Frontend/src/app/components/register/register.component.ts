@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
-
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -15,18 +15,42 @@ import { AuthService } from '../../services/auth/auth.service';
 export class RegisterComponent {
   username: string = '';
   password: string = '';
+  confirmPassword: string = '';
+  firstName: string = '';
+  lastName: string = '';
   errorMessage: string = '';
+  
+  passwordVisible: boolean = false; // Para mostrar/ocultar la contraseña
+  confirmPasswordVisible: boolean = false; // Para mostrar/ocultar la confirmación de contraseña
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private http: HttpClient) {}
 
   onRegister() {
-    this.authService.register(this.username, this.password).subscribe(
-      () => {
+    const userData = {
+      firstName: this.firstName,
+      lastName: this.lastName,
+      username: this.username,
+      password: this.password,
+      confirmPassword: this.confirmPassword
+    };
+  
+    this.http.post('http://localhost:5000/api/register', userData).subscribe(
+      (response: any) => {
+        console.log(response);
         this.router.navigate(['/login']);
       },
-      error => {
-        this.errorMessage = 'Error al registrar el usuario.';
+      (error: any) => {
+        console.error(error);
+        this.errorMessage = error.error.message || 'Error al registrarse';
       }
     );
+  }
+
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
+  }
+
+  toggleConfirmPasswordVisibility() {
+    this.confirmPasswordVisible = !this.confirmPasswordVisible;
   }
 }

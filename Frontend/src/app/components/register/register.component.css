@@ -1,11 +1,15 @@
 .register-container {
-  max-width: 400px;
-  margin: 250px auto; /* Ajusta el margen superior para que no se superponga con la navbar */
+  max-width: 420px;
+  margin: 178px auto; /* Ajusta el margen superior para que no se superponga con la navbar */
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 4px;
   background-color: rgba(0, 0, 0, 0.8); /* Fondo semi-transparente */
   color: white; /* Texto blanco */
+  max-height: calc(100vh - 260px); /* Ajusta la altura máxima para dar espacio a los botones de redes */
+  overflow: hidden; /* Oculta la barra de scroll */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sombra para más profundidad */
+  margin-bottom: 40px; /* Espacio inferior para evitar colisiones */
 }
 
 .register-container h2 {
@@ -49,3 +53,20 @@
   color: red;
   margin-top: 10px;
 }
+
+.password-container {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #ff9800; /* Color del botón */
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
