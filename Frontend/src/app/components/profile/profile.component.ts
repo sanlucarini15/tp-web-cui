@@ -2,17 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
-  imports: [CommonModule]
+  imports: [CommonModule, FormsModule, HttpClientModule]
 })
 export class ProfileComponent implements OnInit {
-  
+
   username: string | null = null;
+  preferences: string[] = [];
+  newPreference: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -21,6 +25,7 @@ export class ProfileComponent implements OnInit {
       (response) => {
         if (response.message === 'Usuario autenticado') {
           this.username = response.username;
+          this.loadPreferences();
         } else {
           this.router.navigate(['/login']);
         }
@@ -29,6 +34,31 @@ export class ProfileComponent implements OnInit {
         console.error('Error al verificar la autenticación:', error);
       }
     );
+  }
+
+  loadPreferences() {
+    this.authService.getPreferences().subscribe(
+      (response) => {
+        this.preferences = response.preferences;
+      },
+      (error) => {
+        console.error('Error al cargar las preferencias:', error);
+      }
+    );
+  }
+
+  addPreference() {
+    if (this.newPreference.trim() !== '') {
+      this.authService.addPreference(this.newPreference).subscribe(
+        (response) => {
+          this.preferences = response.preferences;
+          this.newPreference = '';
+        },
+        (error) => {
+          console.error('Error al agregar la preferencia:', error);
+        }
+      );
+    }
   }
 
   onLogout() {
@@ -45,6 +75,4 @@ export class ProfileComponent implements OnInit {
   onLogin() {
     this.router.navigate(['/login']);
   }
-
-
 }

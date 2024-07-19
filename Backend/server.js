@@ -5,12 +5,12 @@ const passport = require('passport');
 const authRoutes = require('./routes/auth');
 const cors = require('cors');
 const app = express();
-require('./config/database'); // Conectar a la base de datos
-require('./config/passport'); // Asegúrate de requerir la configuración de passport
+require('./config/database'); // Conexion con DB
+require('./config/passport'); // Configuracion de passport
 
 const corsOptions = {
     origin: 'http://localhost:4200',
-    credentials: true, // Asegúrate de que las cookies se envían al cliente
+    credentials: true,
     optionsSuccessStatus: 200 
 };
 
@@ -22,15 +22,15 @@ app.use(session({
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
-    secure: false, // Asegúrate de que esto esté en false para desarrollo; en producción debe ser true
-    sameSite: 'lax' // Otras opciones: 'strict' o 'none'
+    secure: false,
+    sameSite: 'lax' 
   }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cors(corsOptions)); // CORS
+app.use(cors(corsOptions));
 
-// Routes
+// Rutas de endpoints
 app.use('/api/', authRoutes);
 
 const PORT = process.env.PORT || 5000;

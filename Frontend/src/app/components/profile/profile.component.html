@@ -1,7 +1,18 @@
 <div class="content-container">
-  <div class="profile-container" *ngIf="username">
-    <h2>Bienvenido, {{ username }}!</h2>
-    <button (click)="onLogout()" class="btn">Cerrar sesión</button>
+  <div class="profile-container">
+    <div class="greeting-section" *ngIf="username">
+      <h2>Bienvenido, {{ username }}!</h2>
+      <button (click)="onLogout()" class="btn">Cerrar sesión</button>
+    </div>
+    <div class="preferences-section">
+      <h3>Mis Preferencias</h3>
+      <ul class="preferences-list">
+        <li *ngFor="let preference of preferences">{{ preference }}</li>
+      </ul>
+      <input type="text" [(ngModel)]="newPreference" placeholder="Nueva preferencia" class="preference-input">
+      <br><br>
+      <button (click)="addPreference()" class="btn">Agregar Preferencia</button>
+    </div>
   </div>
   <div class="profile-container" *ngIf="!username">
     <p>Ningún usuario ha iniciado sesión.</p>

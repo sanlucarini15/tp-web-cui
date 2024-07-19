@@ -1,10 +1,22 @@
 .content-container {
-  padding-top: 290px; /* Ajustar segun navbar */
+  padding-top: 180px; /* Ajustar según navbar */
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Espacio entre las dos secciones */
 }
 
 .profile-container {
-  max-width: 400px;
-  margin: 100px auto;
+  display: flex;
+  gap: 20px; /* Espacio entre las dos secciones dentro del contenedor */
+  max-width: 800px; /* Ajustar el ancho máximo del contenedor principal */
+  width: 100%;
+  justify-content: center; /* Centrar horizontalmente los recuadros */
+}
+
+.greeting-section,
+.preferences-section {
+  flex: 1;
+  max-width: 300px; /* Ajustar el ancho máximo de cada sección */
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -13,9 +25,39 @@
   text-align: center;
 }
 
-.profile-container h2 {
-  margin-bottom: 20px;
+.greeting-section {
+  background-color: #4a4a4a; /* Diferente color de fondo para distinguir */
+}
+
+.preferences-section {
+  background-color: #333; /* Diferente color de fondo para distinguir */
+}
+
+.greeting-section h2,
+.preferences-section h3 {
   color: #ff9800;
+}
+
+.preferences-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto 20px auto; /* Center list and add bottom margin */
+  width: fit-content; /* Adjust width to content */
+}
+
+.preferences-list li {
+  margin-bottom: 10px;
+  background-color: #444;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.preference-input {
+  width: 100%; /* Full width input */
+  padding: 10px;
+  margin-bottom: 20px; /* Add bottom margin */
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
 .btn {

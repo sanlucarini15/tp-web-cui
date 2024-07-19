@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
-const User = require('../models/user'); // Importa el modelo de usuario
+const User = require('../models/user');
 
 // REGISTER
 exports.register = async (req, res) => {
@@ -83,5 +83,49 @@ exports.getUsers = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Error al obtener los usuarios' });
+  }
+};
+
+// GET USER PREFERENCES
+exports.getPreferences = async (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ message: 'Usuario no autenticado' });
+  }
+
+  const userId = req.user.id;
+
+  try {
+    const user = await User.findById(userId, 'preferences');
+    res.status(200).json({ preferences: user.preferences });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Error al obtener las preferencias' });
+  }
+};
+
+// ADD USER PREFERENCES
+exports.addPreference = async (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ message: 'Usuario no autenticado' });
+  }
+
+  const userId = req.user.id;
+  const { preference } = req.body;
+
+  if (!preference) {
+    return res.status(400).json({ message: 'La preferencia no puede estar vacía' });
+  }
+
+  try {
+    const user = await User.findById(userId);
+    user.preferences.push(preference);
+    await user.save();
+    res.status(200).json({
+      message: `Preferencia '${preference}' agregada al usuario ${user.username}`,
+      preferences: user.preferences
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Error al agregar la preferencia' });
   }
 };

@@ -52,6 +52,14 @@ export class AuthService {
     );
   }
 
+  getPreferences(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/preferences`, { withCredentials: true });
+  }
+
+  addPreference(preference: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/preferences`, { preference }, { withCredentials: true });
+  }
+
   getCurrentUser() {
     return this.currentUser;
   }
