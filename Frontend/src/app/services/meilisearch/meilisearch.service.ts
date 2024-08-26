@@ -1,28 +1,29 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MeiliSearch } from 'meilisearch';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MeilisearchService {
-  private client: MeiliSearch;
-
-  constructor() {
-    this.client = new MeiliSearch({
-      host: 'http://127.0.0.1:7700',
-    });
-  }
-
-  async search(indexName: string, query: string) {
-    const index = this.client.index(indexName);
-    const searchResults = await index.search(query);
-    return searchResults.hits;
-  }
-
-  async getRecordById(indexName: string, id: string) {
-    const index = this.client.index(indexName);
-    const record = await index.getDocument(id);
-    return record;
-  }
   
+  private apiUrl = 'http://localhost:5000/api';
+
+  constructor(private http: HttpClient) {}
+
+  search(indexName: string, query: string) {
+    return this.http.post(`${this.apiUrl}/search`, { indexName, query });
+  }
+
+  addDocuments(indexName: string, documents: any[]) {
+    return this.http.post(`${this.apiUrl}/add-documents`, { indexName, documents });
+  }
+
+  importCSV(filePath: string, indexName: string) {
+    return this.http.post(`${this.apiUrl}/import-csv`, { filePath, indexName });
+  }
+
+  getRecordById(indexName: string, id: string) {
+    return this.http.get(`${this.apiUrl}/get-record`, { params: { indexName, id } });
+  }
+
 }

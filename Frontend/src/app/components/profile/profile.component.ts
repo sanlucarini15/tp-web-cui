@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 export class ProfileComponent implements OnInit {
 
   username: string | null = null;
+  userRole: string | null = null;
   preferences: string[] = [];
   newPreference: string = '';
 
@@ -26,6 +27,7 @@ export class ProfileComponent implements OnInit {
         if (response.message === 'Usuario autenticado') {
           this.username = response.username;
           this.loadPreferences();
+          this.loadUserRole();
         } else {
           this.router.navigate(['/login']);
         }
@@ -43,6 +45,17 @@ export class ProfileComponent implements OnInit {
       },
       (error) => {
         console.error('Error al cargar las preferencias:', error);
+      }
+    );
+  }
+
+  loadUserRole() {
+    this.authService.getUserRole().subscribe(
+      (role) => {
+        this.userRole = role;
+      },
+      (error) => {
+        console.error('Error al cargar el rol del usuario:', error);
       }
     );
   }

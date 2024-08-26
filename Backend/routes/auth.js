@@ -11,5 +11,7 @@ router.get('/check-auth', authController.checkAuthentication);
 router.get('/users', authController.getUsers);
 router.get('/preferences', authController.getPreferences);
 router.post('/preferences', authController.addPreference);
+router.post('/change-role', authController.changeUserRole);
+router.get('/user-role', authController.getAuthenticatedUserRole);
 
 module.exports = router;

@@ -60,6 +60,12 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/preferences`, { preference }, { withCredentials: true });
   }
 
+  getUserRole(): Observable<string> {
+    return this.http.get<{ role: string }>(`${this.apiUrl}/user-role`, { withCredentials: true }).pipe(
+      map(response => response.role)
+    );
+  }  
+
   getCurrentUser() {
     return this.currentUser;
   }
@@ -75,4 +81,5 @@ export class AuthService {
   redirectToProfile() {
     this.router.navigate(['/profile']);
   }
+
 }

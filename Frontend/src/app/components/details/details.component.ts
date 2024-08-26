@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MeilisearchService } from '../../services/meilisearch/meilisearch.service';
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-details',
@@ -12,7 +12,7 @@ import { CommonModule, NgIf } from '@angular/common';
 })
 export class DetailsComponent implements OnInit {
   
-  recordId: any; //Con string no funciona
+  recordId: any; // Usar string si el id es un string
   recordDetails: any;
 
   constructor(private route: ActivatedRoute, private meilisearchService: MeilisearchService) { }
@@ -23,7 +23,11 @@ export class DetailsComponent implements OnInit {
   }
 
   async getRecordDetails() {
-    const indexName = 'steam-video-games'; //Cambiar despues por el indice de proyectos
-    this.recordDetails = await this.meilisearchService.getRecordById(indexName, this.recordId);
+    const indexName = 'funding_options'; // Cambiar después por el índice de proyectos
+    try {
+      this.recordDetails = await this.meilisearchService.getRecordById(indexName, this.recordId).toPromise();
+    } catch (error) {
+      console.error('Error al obtener detalles del registro:', error);
+    }
   }
 }

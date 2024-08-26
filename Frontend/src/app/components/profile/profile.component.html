@@ -3,6 +3,9 @@
     <div class="greeting-section" *ngIf="username">
       <h2>Bienvenido, {{ username }}!</h2>
       <button (click)="onLogout()" class="btn">Cerrar sesión</button>
+      <p></p>
+      <p *ngIf="userRole">Rol: {{ userRole }}</p>
+      <button *ngIf="userRole === 'ADMIN'" class="btn">Agregar contenido</button>
     </div>
     <div class="preferences-section">
       <h3>Mis Preferencias</h3>

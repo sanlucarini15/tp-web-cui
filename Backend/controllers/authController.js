@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const User = require('../models/user');
+const roles = ['ADMIN', 'USER', 'INVITED'];
 
 // REGISTER
 exports.register = async (req, res) => {
@@ -21,12 +22,14 @@ exports.register = async (req, res) => {
     firstName,
     lastName,
     username,
-    password: hashedPassword
+    password: hashedPassword,
+    role: 'USER' // Asignar el rol de 'USER' por defecto
   });
 
   await newUser.save();
   res.status(200).json({ message: 'Usuario registrado exitosamente!' });
 };
+
 
 // LOGIN
 exports.login = (req, res, next) => {
@@ -69,11 +72,14 @@ exports.logout = (req, res, next) => {
 // CHECK AUTH (IF USER IS LOGGED)
 exports.checkAuthentication = (req, res) => {
   if (req.isAuthenticated()) {
-    return res.status(200).json({ message: 'Usuario autenticado', username: req.user.username });
+    return res.status(200).json({ 
+      message: 'Usuario autenticado', 
+      username: req.user.username,
+      role: req.user.role
+    });
   }
-  res.status(401).json({ message: 'Usuario no autenticado' });
+  res.status(200).json({ message: 'Usuario no autenticado', role: 'INVITED' });
 };
-
 
 // GET REGISTERED USERS
 exports.getUsers = async (req, res) => {
@@ -129,3 +135,45 @@ exports.addPreference = async (req, res) => {
     res.status(500).json({ message: 'Error al agregar la preferencia' });
   }
 };
+
+// CHANGE ROLE
+exports.changeUserRole = async (req, res) => {
+  const { username, newRole } = req.body;
+
+  // Verificar que el nuevo rol es válido
+  if (!roles.includes(newRole)) {
+    return res.status(400).json({ message: 'Rol no válido.' });
+  }
+
+  try {
+    // Buscar el usuario por nombre de usuario
+    const user = await User.findOne({ username });
+
+    // Verificar si el usuario existe
+    if (!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado.' });
+    }
+
+    // Cambiar el rol del usuario
+    user.role = newRole;
+    await user.save();
+
+    // Responder con éxito
+    res.status(200).json({ message: `Rol del usuario ${username} cambiado a ${newRole}.` });
+  } catch (err) {
+    console.error('Error al cambiar el rol del usuario:', err);
+    res.status(500).json({ message: 'Error al cambiar el rol del usuario.' });
+  }
+};
+
+// GET AUTHENTICATED USER ROLE
+exports.getAuthenticatedUserRole = (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ message: 'Usuario no autenticado' });
+  }
+
+  const user = req.user;
+  res.status(200).json({ username: user.username, role: user.role });
+};
+
+
