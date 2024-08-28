@@ -47,22 +47,6 @@ const client = new MeiliSearch({
   host: 'http://127.0.0.1:7700',
 });
 
-// // Funciones de Meilisearch
-// async function search(indexName, query) {
-//   const index = client.index(indexName);
-//   return index.search(query);
-// }
-
-// async function addDocuments(indexName, documents) {
-//   const index = client.index(indexName);
-//   return index.addDocuments(documents);
-// }
-
-// async function getRecord(indexName, id) {
-//   const index = client.index(indexName);
-//   return index.getDocument(id);
-// }
-
 async function importCSV(filePath, indexName) {
   const records = [];
   const index = client.index(indexName);
@@ -118,7 +102,7 @@ const upload = multer({ storage });
 app.post('/api/add-documents', upload.single('csvFile'), async (req, res) => {
   const { indexName } = req.body;
   const filePath = req.file.path;
-  const fileName = req.file.originalname; // Nombre del archivo CSV
+  const fileName = req.file.originalname;
 
   try {
     const response = await importCSV(filePath, indexName);
@@ -133,27 +117,29 @@ app.post('/api/add-documents', upload.single('csvFile'), async (req, res) => {
   }
 });
 
-// Función para notificar a los usuarios sobre el nuevo contenido cargado
 async function notifyUsersAboutNewContent(indexName, fileName) {
   try {
-    // Obtener todos los usuarios con sus preferencias desde MongoDB
+    // Obtener todos los usuarios con sus preferencias
     const users = await User.find({}).select('username preferences');
 
     // Obtener el contenido del CSV recién importado
     const newContent = await getNewCSVContent(indexName);
 
     users.forEach(user => {
-      user.preferences.forEach(preference => {
-        // Verifica si la preferencia del usuario coincide con el nuevo contenido
-        const matches = newContent.filter(item => {
-          // Aquí puedes adaptar la lógica para encontrar coincidencias
-          return Object.values(item).some(value => value.includes(preference));
-        });
-
-        if (matches.length > 0) {
-          console.log(`Se ha encontrado nueva preferencia para ${user.username} respecto a la preferencia ${preference} con la nueva carga del ${fileName}`);
-        }
+      const matchedPreferences = user.preferences.filter(preference => {
+        return newContent.some(item => 
+          Object.values(item).some(value => 
+            typeof value === 'string' && value.toLowerCase().includes(preference.toLowerCase())
+          )
+        );
       });
+
+      if (matchedPreferences.length > 0) {
+        console.log(`Se han encontrado nuevas preferencias para ${user.username}:`);
+        matchedPreferences.forEach(pref => {
+          console.log(`- Preferencia "${pref}" coincide con el nuevo contenido en ${fileName}`);
+        });
+      }
     });
   } catch (error) {
     console.error('Error al notificar a los usuarios sobre el nuevo contenido:', error);
@@ -162,10 +148,8 @@ async function notifyUsersAboutNewContent(indexName, fileName) {
 
 // Función para obtener el contenido del CSV recién importado
 async function getNewCSVContent(indexName) {
-  // Busca en el índice de Meilisearch para obtener todos los documentos importados
   const index = client.index(indexName);
-  const searchResults = await index.search('');
-
+  const searchResults = await index.search('', { limit: 1000 });
   return searchResults.hits;
 }
 
