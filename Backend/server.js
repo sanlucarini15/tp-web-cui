@@ -10,16 +10,17 @@ const csv = require('csv-parser');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 const multer = require('multer');
+const mongoose = require('./config/database'); // Conexión a MongoDB
+const User = require('./models/user'); // Modelo de Usuario
 
 const app = express();
-require('./config/database'); // Conexión con DB
-require('./config/passport'); // Configuración de passport
+require('./config/passport'); // Configuración de Passport
 
 // Configuración de CORS
 const corsOptions = {
   origin: 'http://localhost:4200',
   credentials: true,
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
 };
 
 // Middleware
@@ -32,8 +33,8 @@ app.use(session({
   cookie: {
     httpOnly: true,
     secure: false,
-    sameSite: 'lax'
-  }
+    sameSite: 'lax',
+  },
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -46,21 +47,21 @@ const client = new MeiliSearch({
   host: 'http://127.0.0.1:7700',
 });
 
-// Funciones de Meilisearch
-async function search(indexName, query) {
-  const index = client.index(indexName);
-  return index.search(query);
-}
+// // Funciones de Meilisearch
+// async function search(indexName, query) {
+//   const index = client.index(indexName);
+//   return index.search(query);
+// }
 
-async function addDocuments(indexName, documents) {
-  const index = client.index(indexName);
-  return index.addDocuments(documents);
-}
+// async function addDocuments(indexName, documents) {
+//   const index = client.index(indexName);
+//   return index.addDocuments(documents);
+// }
 
-async function getRecord(indexName, id) {
-  const index = client.index(indexName);
-  return index.getDocument(id);
-}
+// async function getRecord(indexName, id) {
+//   const index = client.index(indexName);
+//   return index.getDocument(id);
+// }
 
 async function importCSV(filePath, indexName) {
   const records = [];
@@ -79,11 +80,11 @@ async function importCSV(filePath, indexName) {
       .on('end', async () => {
         try {
           console.log("Datos leídos desde el CSV:", records);
-          
+
           // Agregar los documentos al índice
           const response = await index.addDocuments(records);
           console.log("Respuesta de Meilisearch:", response);
-          
+
           resolve({ message: 'Datos importados a Meilisearch', response });
         } catch (error) {
           console.error('Error al agregar documentos:', error);
@@ -96,8 +97,6 @@ async function importCSV(filePath, indexName) {
       });
   });
 }
-
-// ENDPOINTS MAILISEARCH
 
 // Configuración de multer para almacenar archivos en la carpeta 'uploads'
 const storage = multer.diskStorage({
@@ -119,15 +118,56 @@ const upload = multer({ storage });
 app.post('/api/add-documents', upload.single('csvFile'), async (req, res) => {
   const { indexName } = req.body;
   const filePath = req.file.path;
+  const fileName = req.file.originalname; // Nombre del archivo CSV
 
   try {
     const response = await importCSV(filePath, indexName);
+
+    // Llamada a la función notifyUsersAboutNewContent después de la importación
+    await notifyUsersAboutNewContent(indexName, fileName);
+
     res.json(response);
   } catch (error) {
     console.error('Error al agregar documentos desde CSV:', error);
     res.status(500).json({ error: 'Error al agregar documentos desde CSV' });
   }
 });
+
+// Función para notificar a los usuarios sobre el nuevo contenido cargado
+async function notifyUsersAboutNewContent(indexName, fileName) {
+  try {
+    // Obtener todos los usuarios con sus preferencias desde MongoDB
+    const users = await User.find({}).select('username preferences');
+
+    // Obtener el contenido del CSV recién importado
+    const newContent = await getNewCSVContent(indexName);
+
+    users.forEach(user => {
+      user.preferences.forEach(preference => {
+        // Verifica si la preferencia del usuario coincide con el nuevo contenido
+        const matches = newContent.filter(item => {
+          // Aquí puedes adaptar la lógica para encontrar coincidencias
+          return Object.values(item).some(value => value.includes(preference));
+        });
+
+        if (matches.length > 0) {
+          console.log(`Se ha encontrado nueva preferencia para ${user.username} respecto a la preferencia ${preference} con la nueva carga del ${fileName}`);
+        }
+      });
+    });
+  } catch (error) {
+    console.error('Error al notificar a los usuarios sobre el nuevo contenido:', error);
+  }
+}
+
+// Función para obtener el contenido del CSV recién importado
+async function getNewCSVContent(indexName) {
+  // Busca en el índice de Meilisearch para obtener todos los documentos importados
+  const index = client.index(indexName);
+  const searchResults = await index.search('');
+
+  return searchResults.hits;
+}
 
 // Ruta para importar documentos desde CSV (cuando el archivo ya está en el servidor)
 app.post('/api/import-csv', async (req, res) => {
