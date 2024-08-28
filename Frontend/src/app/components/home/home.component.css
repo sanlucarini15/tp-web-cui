@@ -115,25 +115,3 @@
   color: #ddd;
 }
 
-.contact-buttons {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 20px;
-}
-
-.btn-contact, .btn-social {
-  background-color: #ff9800;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.btn-contact:hover, .btn-social:hover {
-  background-color: #e68900;
-}

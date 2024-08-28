@@ -14,14 +14,15 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RegisterComponent {
   username: string = '';
+  email: string = '';  
   password: string = '';
   confirmPassword: string = '';
   firstName: string = '';
   lastName: string = '';
   errorMessage: string = '';
   
-  passwordVisible: boolean = false; // Para mostrar/ocultar la contraseña
-  confirmPasswordVisible: boolean = false; // Para mostrar/ocultar la confirmación de contraseña
+  passwordVisible: boolean = false; 
+  confirmPasswordVisible: boolean = false;
 
   constructor(private authService: AuthService, private router: Router, private http: HttpClient) {}
 
@@ -30,6 +31,7 @@ export class RegisterComponent {
       firstName: this.firstName,
       lastName: this.lastName,
       username: this.username,
+      email: this.email,  // <-- Incluir el email en los datos
       password: this.password,
       confirmPassword: this.confirmPassword
     };

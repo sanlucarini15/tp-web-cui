@@ -5,7 +5,7 @@ const roles = ['ADMIN', 'USER', 'INVITED'];
 
 // REGISTER
 exports.register = async (req, res) => {
-  const { firstName, lastName, username, password, confirmPassword } = req.body;
+  const { firstName, lastName, username, email, password, confirmPassword } = req.body;
 
   if (password !== confirmPassword) {
     return res.status(400).json({ message: 'Las contraseñas no coinciden.' });
@@ -16,14 +16,20 @@ exports.register = async (req, res) => {
     return res.status(400).json({ message: 'Nombre de usuario ya existente' });
   }
 
+  const existingEmail = await User.findOne({ email });
+  if (existingEmail) {
+    return res.status(400).json({ message: 'Correo electrónico ya registrado.' });
+  }
+
   const hashedPassword = bcrypt.hashSync(password, 8);
-  
+
   const newUser = new User({
     firstName,
     lastName,
     username,
+    email,
     password: hashedPassword,
-    role: 'USER' // Asignar el rol de 'USER' por defecto
+    role: 'USER'
   });
 
   await newUser.save();

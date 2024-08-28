@@ -9,11 +9,13 @@ const fs = require('fs');
 const csv = require('csv-parser');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
+const multer = require('multer');
 
 const app = express();
 require('./config/database'); // Conexión con DB
 require('./config/passport'); // Configuración de passport
 
+// Configuración de CORS
 const corsOptions = {
   origin: 'http://localhost:4200',
   credentials: true,
@@ -54,7 +56,6 @@ async function addDocuments(indexName, documents) {
   const index = client.index(indexName);
   return index.addDocuments(documents);
 }
-
 
 async function getRecord(indexName, id) {
   const index = client.index(indexName);
@@ -98,11 +99,40 @@ async function importCSV(filePath, indexName) {
 
 // ENDPOINTS MAILISEARCH
 
+// Configuración de multer para almacenar archivos en la carpeta 'uploads'
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const uploadPath = path.join(__dirname, 'uploads');
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath); // Crear la carpeta si no existe
+    }
+    cb(null, uploadPath);
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
 
-// Ruta para importar documentos desde CSV
+const upload = multer({ storage });
+
+// Ruta para agregar documentos desde CSV cargado por el usuario
+app.post('/api/add-documents', upload.single('csvFile'), async (req, res) => {
+  const { indexName } = req.body;
+  const filePath = req.file.path;
+
+  try {
+    const response = await importCSV(filePath, indexName);
+    res.json(response);
+  } catch (error) {
+    console.error('Error al agregar documentos desde CSV:', error);
+    res.status(500).json({ error: 'Error al agregar documentos desde CSV' });
+  }
+});
+
+// Ruta para importar documentos desde CSV (cuando el archivo ya está en el servidor)
 app.post('/api/import-csv', async (req, res) => {
   const { indexName, fileName } = req.body;
-  const filePath = path.join(__dirname, 'services', fileName);
+  const filePath = path.join(__dirname, 'uploads', fileName);
 
   try {
     const response = await importCSV(filePath, indexName);
@@ -127,8 +157,7 @@ app.post('/api/search', async (req, res) => {
   }
 });
 
-// end
-
+// Configuración del servidor
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

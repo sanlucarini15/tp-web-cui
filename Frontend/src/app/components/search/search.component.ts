@@ -23,11 +23,11 @@ export class SearchComponent {
 
   onSearch() {
     if (this.query.trim()) {
-      this.meilisearchService.search('funding_options', this.query).subscribe(
+      this.meilisearchService.search('f', this.query).subscribe( //Nuestro indice se llama 'f'
         (results: any) => {
           // Mapea los resultados para crear instancias de Project
           this.results = results.hits.map((result: any) => {
-            return new Project(result.Nombre, result.Descripcion);
+            return new Project(result.Nombre, result.Descripcion, result.Tipo, result.Link); //Nombre Descripcion ... son los campos tal cual aparecen en el CSV
           });
           this.showNoResults = this.results.length === 0;
         },
@@ -40,9 +40,6 @@ export class SearchComponent {
       this.results = [];
       this.showNoResults = false;
     }
-
-    console.log("tamaño: ", this.results.length);
-    console.log("tamaño: ", this.results);
   }
 
 

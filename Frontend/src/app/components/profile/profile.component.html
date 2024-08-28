@@ -5,7 +5,7 @@
       <button (click)="onLogout()" class="btn">Cerrar sesión</button>
       <p></p>
       <p *ngIf="userRole">Rol: {{ userRole }}</p>
-      <button *ngIf="userRole === 'ADMIN'" class="btn">Agregar contenido</button>
+      <button *ngIf="userRole === 'ADMIN'" class="btn" (click)="navigateToAddProject()">Agregar contenido</button>
     </div>
     <div class="preferences-section">
       <h3>Mis Preferencias</h3>

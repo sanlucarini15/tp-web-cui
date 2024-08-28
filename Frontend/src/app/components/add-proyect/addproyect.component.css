@@ -1,0 +1,66 @@
+.add-project-container {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 30px;
+  border-radius: 15px;
+  max-width: 600px;
+  margin: 190px auto; /* Centro el formulario en la página */
+  color: white;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.add-project-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2em;
+  color: #ff9800; /* Consistencia con los botones */
+}
+
+.add-project-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Espaciado entre los elementos del formulario */
+}
+
+.add-project-container label {
+  font-size: 1.2em;
+  margin-bottom: 5px;
+}
+
+.add-project-container input[type="text"],
+.add-project-container input[type="file"] {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1em;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.add-project-container input[type="file"] {
+  background-color: #fff;
+}
+
+.add-project-container button {
+  background-color: #ff9800;
+  color: white;
+  padding: 12px;
+  border-radius: 25px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-project-container button:hover {
+  background-color: #e68900;
+}
+
+.add-project-container p {
+  margin-top: 15px;
+  text-align: center;
+  color: #ddd;
+}
+
+.add-project-container input:focus {
+  outline: none;
+  box-shadow: 0px 0px 5px #ff9800;
+}

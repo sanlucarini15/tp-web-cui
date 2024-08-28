@@ -1,0 +1,14 @@
+<div class="add-project-container">
+  <h2>Agregar Proyecto</h2>
+  <form (ngSubmit)="onSubmit()">
+    <label for="indexName">Nombre del Índice:</label>
+    <input type="text" id="indexName" [(ngModel)]="indexName" name="indexName" required>
+
+    <label for="csvFile">Seleccionar Archivo CSV:</label>
+    <input type="file" id="csvFile" (change)="onFileSelected($event)" required>
+
+    <button type="submit" [disabled]="!selectedFile || !indexName">Agregar Documentos</button>
+  </form>
+
+  <p *ngIf="message">{{ message }}</p>
+</div>

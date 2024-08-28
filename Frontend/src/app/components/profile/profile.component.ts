@@ -88,4 +88,9 @@ export class ProfileComponent implements OnInit {
   onLogin() {
     this.router.navigate(['/login']);
   }
+
+  navigateToAddProject() {
+    this.router.navigate(['/add-proyect']);
+  }
+
 }

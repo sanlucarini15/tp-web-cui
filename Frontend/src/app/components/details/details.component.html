@@ -1,11 +1,15 @@
-<div class="details-page">
-    <div class="details-container" *ngIf="recordDetails">
-      <h1 class="details-title">{{ recordDetails.name }}</h1>
-      <div class="details-info">
-        <p><strong>Genre:</strong> {{ recordDetails.genre }}</p>
-      </div>
-      <a href="/search" class="back-button">Buscar mas juegos</a>
+<div class="details-page" *ngIf="recordDetails; else loading">
+  <div class="details-container">
+    <h1 class="details-title">{{ recordDetails.name }}</h1>
+    <div class="details-info">
+      <p><strong>Tipo:</strong> {{ recordDetails.type }}</p>
+      <p><strong>Descripción:</strong> {{ recordDetails.description }}</p>
+      <p><strong>Link: </strong> <a [href]="recordDetails.link" target="_blank">{{ recordDetails.link }}</a></p>
     </div>
-    <div *ngIf="!recordDetails" class="loading-message">Loading...</div>
+    <p></p>
+    <a href="/search" class="back-button">Buscar más proyectos</a>
   </div>
-  
+</div>
+<ng-template #loading>
+  <div class="loading-message">Cargando detalles...</div>
+</ng-template>
