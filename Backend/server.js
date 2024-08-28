@@ -11,7 +11,8 @@ const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 const multer = require('multer');
 const mongoose = require('./config/database'); // Conexión a MongoDB
-const User = require('./models/user'); // Modelo de Usuario
+const User = require('./models/user');
+const transporter = require('./config/mailer');
 
 const app = express();
 require('./config/passport'); // Configuración de Passport
@@ -42,11 +43,13 @@ app.use(passport.session());
 // Rutas de endpoints
 app.use('/api/', authRoutes);
 
-// Inicializar el cliente de Meilisearch
+// Inicializacion del cliente Meilisearch
 const client = new MeiliSearch({
   host: 'http://127.0.0.1:7700',
 });
 
+
+////////////////////// ENDPOINTS MEILISEARCH
 async function importCSV(filePath, indexName) {
   const records = [];
   const index = client.index(indexName);
@@ -119,30 +122,47 @@ app.post('/api/add-documents', upload.single('csvFile'), async (req, res) => {
 
 async function notifyUsersAboutNewContent(indexName, fileName) {
   try {
-    // Obtener todos los usuarios con sus preferencias
-    const users = await User.find({}).select('username preferences');
-
-    // Obtener el contenido del CSV recién importado
+    const users = await User.find({}).select('username email preferences');
     const newContent = await getNewCSVContent(indexName);
 
-    users.forEach(user => {
-      const matchedPreferences = user.preferences.filter(preference => {
-        return newContent.some(item => 
+    for (const user of users) {
+      const matchedPreferences = user.preferences.filter(preference => 
+        newContent.some(item => 
           Object.values(item).some(value => 
             typeof value === 'string' && value.toLowerCase().includes(preference.toLowerCase())
           )
-        );
-      });
+        )
+      );
 
       if (matchedPreferences.length > 0) {
         console.log(`Se han encontrado nuevas preferencias para ${user.username}:`);
+        
+        let emailContent = `Hola ${user.username},\n\nSe ha cargado nuevo contenido que coincide con tus preferencias:\n\n`;
         matchedPreferences.forEach(pref => {
           console.log(`- Preferencia "${pref}" coincide con el nuevo contenido en ${fileName}`);
+          emailContent += `- Tu preferencia "${pref}" coincide con nuevo contenido en ${fileName}\n`;
         });
+
+        // Enviar correo electrónico
+        await sendEmail(user.email, 'Nuevo contenido de interés', emailContent);
       }
-    });
+    }
   } catch (error) {
     console.error('Error al notificar a los usuarios sobre el nuevo contenido:', error);
+  }
+}
+
+async function sendEmail(to, subject, text) {
+  try {
+    const info = await transporter.sendMail({
+      from: '"AppProyectos" <santinolucarini@gmail.com>',
+      to: to,
+      subject: subject,
+      text: text,
+    });
+    console.log('Correo enviado: %s', info.messageId);
+  } catch (error) {
+    console.error('Error al enviar el correo:', error);
   }
 }
 
@@ -180,6 +200,8 @@ app.post('/api/search', async (req, res) => {
     res.status(500).json({ error: 'Error al realizar la búsqueda' });
   }
 });
+
+//////////////////////////////////////////////////////////////////////////
 
 // Configuración del servidor
 const PORT = process.env.PORT || 5000;
