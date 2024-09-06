@@ -90,7 +90,7 @@ const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const uploadPath = path.join(__dirname, 'uploads');
     if (!fs.existsSync(uploadPath)) {
-      fs.mkdirSync(uploadPath); // Crear la carpeta si no existe
+      fs.mkdirSync(uploadPath); // Crea la carpeta si no existe
     }
     cb(null, uploadPath);
   },
@@ -110,7 +110,7 @@ app.post('/api/add-documents', upload.single('csvFile'), async (req, res) => {
   try {
     const response = await importCSV(filePath, indexName);
 
-    // Llamada a la función notifyUsersAboutNewContent después de la importación
+    
     await notifyUsersAboutNewContent(indexName, fileName);
 
     res.json(response);
@@ -143,7 +143,7 @@ async function notifyUsersAboutNewContent(indexName, fileName) {
           emailContent += `- Tu preferencia "${pref}" coincide con nuevo contenido en ${fileName}\n`;
         });
 
-        // Enviar correo electrónico
+        
         await sendEmail(user.email, 'Nuevo contenido de interés', emailContent);
       }
     }

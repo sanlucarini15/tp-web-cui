@@ -90,7 +90,7 @@ exports.checkAuthentication = (req, res) => {
 // GET REGISTERED USERS
 exports.getUsers = async (req, res) => {
   try {
-    const users = await User.find({}, 'username'); // Excluir las contraseñas
+    const users = await User.find({}, 'username'); // Excluye las contraseñas
     res.status(200).json(users);
   } catch (err) {
     console.error(err);
